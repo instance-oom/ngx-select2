@@ -1,0 +1,32 @@
+{
+  "name": "ngx-select2",
+  "version": "1.0.0",
+  "description": "Select2 component for Angular",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "tsc:w": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lon-yang/ngx-select2.git"
+  },
+  "keywords": [
+    "select2",
+    "angular"
+  ],
+  "author": "Lon.L.Yang",
+  "license": "Apache License 2.0",
+  "bugs": {
+    "url": "https://github.com/lon-yang/ngx-select2/issues"
+  },
+  "homepage": "https://github.com/lon-yang/ngx-select2#readme",
+  "peerDependencies": {
+    "@angular/core": "^4.2.4",
+    "@angular/forms": "^4.2.4"
+  },
+  "devDependencies": {
+    "@angular/core": "^4.2.4",
+    "@angular/forms": "^4.2.4"
+  }
+}
