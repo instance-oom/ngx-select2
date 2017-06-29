@@ -1,6 +1,6 @@
 {
   "name": "ngx-select2",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Select2 component for Angular",
   "main": "index.js",
   "scripts": {
@@ -22,11 +22,15 @@
   },
   "homepage": "https://github.com/lon-yang/ngx-select2#readme",
   "peerDependencies": {
+    "@angular/common": "^4.2.4",
     "@angular/core": "^4.2.4",
-    "@angular/forms": "^4.2.4"
+    "@angular/forms": "^4.2.4",
+    "rxjs": "^5.4.1"
   },
   "devDependencies": {
+    "@angular/common": "^4.2.4",
     "@angular/core": "^4.2.4",
-    "@angular/forms": "^4.2.4"
+    "@angular/forms": "^4.2.4",
+    "rxjs": "^5.4.1"
   }
 }

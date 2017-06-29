@@ -32,12 +32,6 @@ export class LSelect2Component implements ControlValueAccessor {
   @Input()
   options: any = {};
 
-  @Input()
-  textField: string = 'text';
-
-  @Input()
-  idField: string = 'id';
-
   selectedValue: any | Array<any>
   _jqueryElement: any;
 
@@ -91,7 +85,6 @@ export class LSelect2Component implements ControlValueAccessor {
   }
 
   writeValue(value: any | Array<any>): void {
-    console.log('write value', value);
     this.selectedValue = value;
     if (value)
       this.setSelect2Value(value);
@@ -119,11 +112,10 @@ export class LSelect2Component implements ControlValueAccessor {
   }
 
   setSelect2Value(value: any | Array<any>) {
-    let targetVal = value[this.idField] || value;
+    let targetVal = value['id'] || value;
     if (Array.isArray(value)) {
-      targetVal = value.map(x => x[this.idField]);
+      targetVal = value.map(x => x['id']);
     }
-    console.log(targetVal);
     this._jqueryElement.val(targetVal).trigger('change');
   }
 }
