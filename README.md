@@ -1,8 +1,9 @@
 # ngx-select2
 Select2 component for Angular
 
-# ngx-select2
-Select2 component for Angular
+[![peerDependencies Status](https://david-dm.org/lon-yang/ngx-select2/peer-status.svg)](https://david-dm.org/lon-yang/ngx-select2?type=peer)
+[![npm version](https://badge.fury.io/js/ngx-select2.svg)](https://badge.fury.io/js/ngx-select2)
+[![licence](https://img.shields.io/npm/l/ngx-select2.svg)](https://opensource.org/licenses/Apache2.0)
 
 # Usage
 
