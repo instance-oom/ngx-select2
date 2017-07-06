@@ -86,7 +86,7 @@ export class LSelect2Component implements ControlValueAccessor {
 
   writeValue(value: any | Array<any>): void {
     this.selectedValue = value;
-    if (value)
+    if (value !== null && value !== undefined)
       this.setSelect2Value(value);
   }
 
