@@ -1,0 +1,63 @@
+<h2>Complex Data Source</h2>
+<form novalidate #form="ngForm" (ngSubmit)="save(form)">
+  <l-select2 name="Select2" [(ngModel)]="selected" [data]="data" [options]="options" [disabled]="false"></l-select2>
+  <br /><br />
+  <button type="button" (click)="selectMale()">Select Male</button>
+  <button type="button" (click)="selectFeMale()">Select FeMale</button>
+  <button type="submit">Sumit</button>
+</form>
+<br />
+<div style="display: flex">
+  <div style="flex: 1">
+    <h3>data</h3>
+    {{ data | json }}
+  </div>
+  <div style="flex: 1">
+    <h3>'selected' value</h3>
+    {{ selected | json }}
+  </div>
+  <div style="flex: 1">
+    <h3 *ngIf="form">Form value</h3>
+    {{ form?.value | json }}
+  </div>
+</div>
+<hr style="margin: 30px 0">
+<h2>Simple Data Source</h2>
+<form novalidate #form2="ngForm" (ngSubmit)="save(form2)">
+  <l-select2 name="SimpleData" [(ngModel)]="selected2" [data]="data2"></l-select2>
+  <br /><br />
+  <button type="submit">Sumit</button>
+</form>
+<br />
+<div style="display: flex">
+  <div style="flex: 1">
+    <h3>data</h3>
+    {{ data2 | json }}
+  </div>
+  <div style="flex: 1">
+    <h3>'selected' value</h3>
+    {{ selected2 | json }}
+  </div>
+  <div style="flex: 1">
+    <h3 *ngIf="form2">Form value</h3>
+    {{ form2?.value | json }}
+  </div>
+</div>
+<hr style="margin: 30px 0">
+<h2>Remote Data Source</h2>
+<form novalidate #form3="ngForm" (ngSubmit)="save(form3)">
+  <l-select2 name="RemoteData" [(ngModel)]="selected3" [options]="remoteOptions"></l-select2>
+  <br /><br />
+  <button type="submit">Sumit</button>
+</form>
+<br />
+<div style="display: flex">
+  <div style="flex: 1">
+    <h3>'selected' value</h3>
+    {{ selected3 | json }}
+  </div>
+  <div style="flex: 1">
+    <h3 *ngIf="form3">Form value</h3>
+    {{ form3?.value | json }}
+  </div>
+</div>
