@@ -61,3 +61,20 @@
     {{ form3?.value | json }}
   </div>
 </div>
+
+
+<hr style="margin: 30px 0">
+<h2>FormBuilder</h2>
+<form [formGroup]="productForm" (ngSubmit)="addProduct($event, productForm.value)" novalidate autocomplete="off">
+  <l-select2 formControlName="category_uuid" required name="category_uuid" [data]="data2"></l-select2>
+</form>
+<br />
+<div style="display: flex">
+  <div style="flex: 1">
+    <h3 *ngIf="form3">Form value</h3>
+    {{ productForm?.value | json }}
+  </div>
+</div>
+<br>
+<br>
+<br>

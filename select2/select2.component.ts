@@ -61,6 +61,9 @@ export class LSelect2Component implements ControlValueAccessor {
       }
       this._onChange(data);
     });
+    if (this.setSelect2Value) {
+      this.setSelect2Value(this.selectedValue);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -112,6 +115,10 @@ export class LSelect2Component implements ControlValueAccessor {
   }
 
   setSelect2Value(value: any | Array<any>) {
+    if (!this._jqueryElement || !value) {
+      this.selectedValue = value;
+      return;
+    };
     let targetVal = value['id'] || value;
     if (Array.isArray(value)) {
       targetVal = value.map(x => x['id']);

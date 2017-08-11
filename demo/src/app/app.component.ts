@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'ngx-select2-root',
@@ -17,6 +18,15 @@ export class AppComponent {
 
   selected3: any;
   remoteOptions: any;
+
+  select4: any;
+
+  productForm: FormGroup;
+
+  constructor(
+    private _fb: FormBuilder) {
+
+  }
 
   ngOnInit() {
     this.data = [
@@ -61,6 +71,14 @@ export class AppComponent {
       templateResult: this.formatRepo,
       templateSelection: this.formatRepoSelection
     }
+
+    this.buildForm();
+  }
+
+  buildForm() {
+    this.productForm = this._fb.group({
+      category_uuid: { 'id': 'A_2' }
+    })
   }
 
   selectMale() {
