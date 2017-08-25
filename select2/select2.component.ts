@@ -49,7 +49,7 @@ export class LSelect2Component implements ControlValueAccessor {
     this._jqueryElement = $(this.selectControll.nativeElement);
     this.initSelect2();
 
-    this._jqueryElement.on('select2:select select2:unselect', () => {
+    this._jqueryElement.on('select2:select select2:unselect', (e) => {
       let data = this._jqueryElement.select2('data');
       for (let item of data) {
         delete item.element;
@@ -57,7 +57,7 @@ export class LSelect2Component implements ControlValueAccessor {
         delete item.selected;
       }
       if (!this.options.multiple) {
-        data = data[0];
+        data = (e.type == 'select2:unselect') ? null : data[0];
       }
       this._onChange(data);
     });
