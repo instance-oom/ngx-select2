@@ -70,18 +70,9 @@ export class LSelect2Component implements ControlValueAccessor {
     if (!this._jqueryElement) return;
     if (changes['data'] && JSON.stringify(changes['data'].previousValue) !== JSON.stringify(changes['data'].currentValue)) {
       this.initSelect2();
-      setTimeout(() => {
-        let data = this._jqueryElement.select2('data');
-        for (let item of data) {
-          delete item.element;
-          delete item.disabled;
-          delete item.selected;
-        }
-        if (!this.options.multiple) {
-          data = data[0];
-        }
-        this._onChange(data);
-      });
+      if (this.selectedValue) {
+        this.setSelect2Value(this.selectedValue);
+      }
     }
   }
 
