@@ -49,7 +49,7 @@ export class LSelect2Component implements ControlValueAccessor {
     this._jqueryElement = $(this.selectControll.nativeElement);
     this.initSelect2();
 
-    this._jqueryElement.on('select2:select select2:unselect', (e) => {
+    this._jqueryElement.on('select2:select select2:unselect', (e: any) => {
       let data = this._jqueryElement.select2('data');
       for (let item of data) {
         delete item.element;
