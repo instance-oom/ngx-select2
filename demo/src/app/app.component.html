@@ -75,6 +75,17 @@
     {{ productForm?.value | json }}
   </div>
 </div>
+
+<hr style="margin: 30px 0">
+<h2>Demo for tax</h2>
+<l-select2 [data]="taxes" [(ngModel)]="selectedTax" [options]="options"></l-select2>
+<br />
+<div style="display: flex">
+  <div style="flex: 1">
+    <h3>'selectedTax' value</h3>
+    {{ selectedTax | json }}
+  </div>
+</div>
 <br>
 <br>
 <br>

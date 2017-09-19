@@ -21,6 +21,9 @@ export class AppComponent {
 
   select4: any;
 
+  taxes: Array<any>;
+  selectedTax: any;
+
   productForm: FormGroup;
 
   constructor(
@@ -33,6 +36,13 @@ export class AppComponent {
       { text: 'Male', id: '5fe2555b-f201-4165-8845-115039221463' },
       { text: 'FeMale', id: 'ca22406c-350a-49e5-b0db-2714b164c560' }
     ];
+
+    this.taxes = [
+      { id: 'a1', text: 'a1', value: 'a1', flag: 'a' },
+      { id: 'a2', text: 'a2', value: 'a2', flag: 'a' },
+      { id: 'b1', text: 'b1', value: 'b1', flag: 'b' },
+      { id: 'b2', text: 'b2', value: 'b2', flag: 'b' }
+    ]
 
     this.selected = [{ text: 'FeMale', id: 'ca22406c-350a-49e5-b0db-2714b164c560' }];
 
@@ -113,6 +123,10 @@ export class AppComponent {
       "</div></div>";
 
     return markup;
+  }
+
+  addProduct(form, value) {
+
   }
 
   formatRepoSelection(repo) {
