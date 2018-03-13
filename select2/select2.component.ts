@@ -27,13 +27,13 @@ export class LSelect2Component implements ControlValueAccessor {
   data: Array<any>;
 
   @Input()
-  name: string;
+  name?: string;
 
   @Input()
   disabled: boolean;
 
   @Input()
-  required: boolean;
+  required?: boolean;
 
   @Input()
   options: any = {};
@@ -59,10 +59,16 @@ export class LSelect2Component implements ControlValueAccessor {
       let data = this._jqueryElement.select2('data');
       for (let item of data) {
         delete item.element;
-        delete item.name;
         delete item.disabled;
-        delete item.required;
         delete item.selected;
+
+        if (item.hasOwnProperty('name')) {
+          delete item.name;
+        }
+
+        if (item.hasOwnProperty('required')) {
+          delete item.required;
+        }
       }
       if (!this.options.multiple) {
         data = (e.type == 'select2:unselect') ? null : data[0];
