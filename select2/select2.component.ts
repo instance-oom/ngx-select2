@@ -20,15 +20,12 @@ declare let $: any;
     useValue: function (control: FormControl) {
       let selectValue = control.value;
       if (selectValue.hasOwnProperty('id') && selectValue.id === undefined) {
-        console.log('value is bad');
         return {
           required: {
             valid: false
           }
         }
       }
-
-      console.log('value is good');
 
       return null;
     },
