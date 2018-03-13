@@ -21,7 +21,11 @@ declare let $: any;
       let selectValue = control.value;
       if (selectValue.hasOwnProperty('id') && selectValue.id === undefined) {
         console.log('value is bad');
-        return false;
+        return {
+          required: {
+            valid: false
+          }
+        }
       }
 
       console.log('value is good');
