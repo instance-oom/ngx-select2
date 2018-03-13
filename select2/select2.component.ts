@@ -19,7 +19,7 @@ declare let $: any;
     provide: NG_VALIDATORS,
     useValue: function (control: FormControl) {
       let selectValue = control.value;
-      if (selectValue.hasOwnProperty('id') && !selectValue.id) {
+      if (!selectValue || (selectValue.hasOwnProperty('id') && !selectValue.id)) {
         return {
           required: {
             valid: false

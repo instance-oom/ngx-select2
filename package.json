@@ -1,6 +1,6 @@
 {
   "name": "ngx-select2",
-  "version": "0.1.7",
+  "version": "0.1.4",
   "description": "Select2 component for Angular",
   "main": "index.js",
   "scripts": {
