@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, forwardRef, Input, SimpleChanges, Renderer } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, FormControl} from '@angular/forms';
 
 declare let $: any;
 
@@ -14,6 +14,20 @@ declare let $: any;
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => LSelect2Component),
+    multi: true
+  }, {
+    provide: NG_VALIDATORS,
+    useValue: function (control: FormControl) {
+      let selectValue = control.value;
+      if (selectValue.hasOwnProperty('id') && selectValue.id === undefined) {
+        console.log('value is bad');
+        return false;
+      }
+
+      console.log('value is good');
+
+      return null;
+    },
     multi: true
   }]
 })
