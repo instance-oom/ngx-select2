@@ -6,7 +6,7 @@ declare let $: any;
 @Component({
   selector: 'l-select2',
   template: `
-    <select #selectControll [name]="name" [disabled]="disabled" style="width: 100%">
+    <select #selectControll [name]="name" [disabled]="disabled" [required]="required" style="width: 100%">
       <ng-content select="option, optgroup">
       </ng-content>
     </select>
@@ -31,6 +31,9 @@ export class LSelect2Component implements ControlValueAccessor {
 
   @Input()
   disabled: boolean;
+
+  @Input()
+  required: boolean;
 
   @Input()
   options: any = {};
@@ -58,6 +61,7 @@ export class LSelect2Component implements ControlValueAccessor {
         delete item.element;
         delete item.name;
         delete item.disabled;
+        delete item.required;
         delete item.selected;
       }
       if (!this.options.multiple) {
