@@ -2,14 +2,12 @@ import {Component, ViewChild, ElementRef, forwardRef, Input, SimpleChanges, Rend
 import {
   NG_VALUE_ACCESSOR,
   ControlValueAccessor,
-  NG_VALIDATORS,
-  Form,
   FormControl,
   Validators,
   ValidatorFn,
   FormGroup
 } from '@angular/forms';
-import {validateSelect2Field} from 'ngx-select2';
+import {validateSelect2Field} from './select2.validator';
 
 declare let $: any;
 
@@ -17,7 +15,8 @@ declare let $: any;
   selector: 'l-select2',
   template: `
     <div [formGroup]="parentForm">
-      <select #selectControll [name]="name" [disabled]="disabled" [required]="required" style="width: 100%" formControlName="{{name}}">
+      <select #selectControll [name]="name" [disabled]="disabled" [required]="required" style="width: 100%"
+              formControlName="{{name}}">
         <ng-content select="option, optgroup">
         </ng-content>
       </select>
@@ -152,11 +151,13 @@ export class LSelect2Component implements ControlValueAccessor {
       this.selectedValue = value;
       return;
     }
-    ;
+
     let targetVal = value['id'] || value;
+
     if (Array.isArray(value)) {
       targetVal = value.map(x => x['id']);
     }
+
     this._jqueryElement.val(targetVal).trigger('change');
   }
 }
