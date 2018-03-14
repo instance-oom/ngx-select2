@@ -1,12 +1,12 @@
-import { Component, ViewChild, ElementRef, forwardRef, Input, SimpleChanges, Renderer } from '@angular/core';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, FormControl} from '@angular/forms';
+import {Component, ViewChild, ElementRef, forwardRef, Input, SimpleChanges, Renderer} from '@angular/core';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
 
 declare let $: any;
 
 @Component({
   selector: 'l-select2',
   template: `
-    <select #selectControll [name]="name" [disabled]="disabled" [required]="required" style="width: 100%">
+    <select #selectControll [name]="name" [disabled]="disabled" [required]="required" [validateSelect2]="required" style="width: 100%">
       <ng-content select="option, optgroup">
       </ng-content>
     </select>
@@ -14,21 +14,6 @@ declare let $: any;
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => LSelect2Component),
-    multi: true
-  }, {
-    provide: NG_VALIDATORS,
-    useValue: function (control: FormControl) {
-      let selectValue = control.value;
-      if (!selectValue || (selectValue.hasOwnProperty('id') && !selectValue.id)) {
-        return {
-          required: {
-            valid: false
-          }
-        }
-      }
-
-      return null;
-    },
     multi: true
   }]
 })
@@ -56,15 +41,18 @@ export class LSelect2Component implements ControlValueAccessor {
   selectedValue: any | Array<any>;
   _jqueryElement: any;
 
-  _onChange = (_: any) => { };
-  _onTouched = () => { };
+  _onChange = (_: any) => {
+  };
+  _onTouched = () => {
+  };
 
   constructor(
     private _renderer: Renderer) {
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   ngAfterViewInit() {
     this._jqueryElement = $(this.selectControll.nativeElement);
@@ -140,7 +128,8 @@ export class LSelect2Component implements ControlValueAccessor {
     if (!this._jqueryElement || !value) {
       this.selectedValue = value;
       return;
-    };
+    }
+    ;
     let targetVal = value['id'] || value;
     if (Array.isArray(value)) {
       targetVal = value.map(x => x['id']);
