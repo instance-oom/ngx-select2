@@ -1,12 +1,12 @@
 import {Component, ViewChild, ElementRef, forwardRef, Input, SimpleChanges, Renderer} from '@angular/core';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import {NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS} from '@angular/forms';
 
 declare let $: any;
 
 @Component({
   selector: 'l-select2',
   template: `
-    <select #selectControll [name]="name" [disabled]="disabled" [required]="required" [validateSelect2]="required" style="width: 100%">
+    <select #selectControll [name]="name" [disabled]="disabled" [required]="required" [validateSelect]="true" style="width: 100%">
       <ng-content select="option, optgroup">
       </ng-content>
     </select>
