@@ -1,15 +1,26 @@
-import { Component, ViewChild, ElementRef, forwardRef, Input, SimpleChanges, Renderer } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import {Component, ViewChild, ElementRef, forwardRef, Input, SimpleChanges, Renderer} from '@angular/core';
+import {
+  NG_VALUE_ACCESSOR,
+  ControlValueAccessor,
+  FormControl,
+  Validators,
+  ValidatorFn,
+  FormGroup
+} from '@angular/forms';
+import {validateSelect2Field} from './select2.validator';
 
 declare let $: any;
 
 @Component({
   selector: 'l-select2',
   template: `
-    <select #selectControll [disabled]="disabled" style="width: 100%">
-      <ng-content select="option, optgroup">
-      </ng-content>
-    </select>
+    <div [formGroup]="parentForm">
+      <select #selectControll [name]="name" [disabled]="disabled" [required]="required" style="width: 100%"
+              formControlName="{{name}}">
+        <ng-content select="option, optgroup">
+        </ng-content>
+      </select>
+    </div>
   `,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
@@ -23,27 +34,47 @@ export class LSelect2Component implements ControlValueAccessor {
   @ViewChild('selectControll')
   selectControll: ElementRef;
 
+  @Input() parentForm: FormGroup;
+
   @Input()
   data: Array<any>;
+
+  @Input()
+  name?: string;
 
   @Input()
   disabled: boolean;
 
   @Input()
+  required?: boolean;
+
+  @Input()
   options: any = {};
 
-  selectedValue: any | Array<any>
+  selectedValue: any | Array<any>;
   _jqueryElement: any;
 
-  _onChange = (_: any) => { };
-  _onTouched = () => { };
+  _onChange = (_: any) => {
+  };
+  _onTouched = () => {
+  };
 
   constructor(
     private _renderer: Renderer) {
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    const validators: ValidatorFn[] = [];
+
+    if (this.required) {
+      validators.push(Validators.required, validateSelect2Field);
+    }
+
+    if (this.parentForm && this.name) {
+      this.parentForm.addControl(this.name, new FormControl(this.selectedValue, validators));
+    }
+  }
 
   ngAfterViewInit() {
     this._jqueryElement = $(this.selectControll.nativeElement);
@@ -55,6 +86,14 @@ export class LSelect2Component implements ControlValueAccessor {
         delete item.element;
         delete item.disabled;
         delete item.selected;
+
+        if (item.hasOwnProperty('name')) {
+          delete item.name;
+        }
+
+        if (item.hasOwnProperty('required')) {
+          delete item.required;
+        }
       }
       if (!this.options.multiple) {
         data = (e.type == 'select2:unselect') ? null : data[0];
@@ -111,11 +150,14 @@ export class LSelect2Component implements ControlValueAccessor {
     if (!this._jqueryElement || !value) {
       this.selectedValue = value;
       return;
-    };
+    }
+
     let targetVal = value['id'] || value;
+
     if (Array.isArray(value)) {
       targetVal = value.map(x => x['id']);
     }
+
     this._jqueryElement.val(targetVal).trigger('change');
   }
 }
