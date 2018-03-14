@@ -15,8 +15,9 @@ declare let $: any;
   selector: 'l-select2',
   template: `
     <div [formGroup]="parentForm">
-      <select #selectControll [name]="name" [disabled]="disabled" [required]="required" style="width: 100%"
+      <select #selectControll [name]="name" [required]="required" style="width: 100%"
               formControlName="{{name}}">
+        <option></option>
         <ng-content select="option, optgroup">
         </ng-content>
       </select>
@@ -35,6 +36,7 @@ export class LSelect2Component implements ControlValueAccessor {
   selectControll: ElementRef;
 
   @Input() parentForm: FormGroup;
+  @Input() initialValue: any;
 
   @Input()
   data: Array<any>;
@@ -54,6 +56,8 @@ export class LSelect2Component implements ControlValueAccessor {
   selectedValue: any | Array<any>;
   _jqueryElement: any;
 
+  control: FormControl;
+
   _onChange = (_: any) => {
   };
   _onTouched = () => {
@@ -66,13 +70,17 @@ export class LSelect2Component implements ControlValueAccessor {
 
   ngOnInit() {
     const validators: ValidatorFn[] = [];
+    if (this.initialValue) {
+      this.selectedValue = this.initialValue;
+    }
 
     if (this.required) {
       validators.push(Validators.required, validateSelect2Field);
     }
 
     if (this.parentForm && this.name) {
-      this.parentForm.addControl(this.name, new FormControl(this.selectedValue, validators));
+      this.control = new FormControl({value: this.selectedValue, disabled: this.disabled}, validators)
+      this.parentForm.addControl(this.name, this.control);
     }
   }
 
@@ -98,6 +106,7 @@ export class LSelect2Component implements ControlValueAccessor {
       if (!this.options.multiple) {
         data = (e.type == 'select2:unselect') ? null : data[0];
       }
+      this.control.setValue(data);
       this._onChange(data);
     });
     if (this.selectedValue) {
@@ -143,6 +152,11 @@ export class LSelect2Component implements ControlValueAccessor {
       data: this.data
     };
     Object.assign(options, this.options);
+
+    if (!this._jqueryElement.children().length) {
+      this._jqueryElement.append('<option>');
+    }
+
     this._jqueryElement.select2(options);
   }
 
