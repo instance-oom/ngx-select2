@@ -1,15 +1,26 @@
 import {Component, ViewChild, ElementRef, forwardRef, Input, SimpleChanges, Renderer} from '@angular/core';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS} from '@angular/forms';
+import {
+  NG_VALUE_ACCESSOR,
+  ControlValueAccessor,
+  FormControl,
+  Validators,
+  ValidatorFn,
+  FormGroup
+} from '@angular/forms';
+import {validateSelect2Field} from './select2.validator';
 
 declare let $: any;
 
 @Component({
   selector: 'l-select2',
   template: `
-    <select #selectControll [name]="name" [disabled]="disabled" [required]="required" [validateSelect]="true" style="width: 100%">
-      <ng-content select="option, optgroup">
-      </ng-content>
-    </select>
+    <div [formGroup]="parentForm">
+      <select #selectControll [name]="name" [disabled]="disabled" [required]="required" style="width: 100%"
+              formControlName="{{name}}">
+        <ng-content select="option, optgroup">
+        </ng-content>
+      </select>
+    </div>
   `,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
@@ -22,6 +33,8 @@ export class LSelect2Component implements ControlValueAccessor {
 
   @ViewChild('selectControll')
   selectControll: ElementRef;
+
+  @Input() parentForm: FormGroup;
 
   @Input()
   data: Array<any>;
@@ -52,6 +65,15 @@ export class LSelect2Component implements ControlValueAccessor {
   }
 
   ngOnInit() {
+    const validators: ValidatorFn[] = [];
+
+    if (this.required) {
+      validators.push(Validators.required, validateSelect2Field);
+    }
+
+    if (this.parentForm && this.name) {
+      this.parentForm.addControl(this.name, new FormControl(this.selectedValue, validators));
+    }
   }
 
   ngAfterViewInit() {
@@ -129,11 +151,13 @@ export class LSelect2Component implements ControlValueAccessor {
       this.selectedValue = value;
       return;
     }
-    ;
+
     let targetVal = value['id'] || value;
+
     if (Array.isArray(value)) {
       targetVal = value.map(x => x['id']);
     }
+
     this._jqueryElement.val(targetVal).trigger('change');
   }
 }
