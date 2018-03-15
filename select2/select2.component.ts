@@ -15,8 +15,8 @@ declare let $: any;
   selector: 'l-select2',
   template: `
     <div [formGroup]="parentForm">
-      <select #selectControll [name]="name" [required]="required" style="width: 100%"
-              formControlName="{{name}}">
+      <input formControlName="{{name}}" hidden>
+      <select #selectControll [name]="name" [required]="required" style="width: 100%">
         <option></option>
         <ng-content select="option, optgroup">
         </ng-content>
@@ -79,7 +79,7 @@ export class LSelect2Component implements ControlValueAccessor {
     }
 
     if (this.parentForm && this.name) {
-      this.control = new FormControl({value: this.selectedValue, disabled: this.disabled}, validators)
+      this.control = new FormControl({value: this.selectedValue, disabled: Boolean(this.disabled)}, validators)
       this.parentForm.addControl(this.name, this.control);
     }
   }
@@ -153,7 +153,7 @@ export class LSelect2Component implements ControlValueAccessor {
     };
     Object.assign(options, this.options);
 
-    if (!this._jqueryElement.children().length) {
+    if (!this._jqueryElement.children().length && !this.options.multiple) {
       this._jqueryElement.append('<option>');
     }
 
