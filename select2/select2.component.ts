@@ -106,7 +106,10 @@ export class LSelect2Component implements ControlValueAccessor {
       if (!this.options.multiple) {
         data = (e.type == 'select2:unselect') ? null : data[0];
       }
-      this.control.setValue(data);
+      if (this.control) {
+        this.control.setValue(data);
+        this.control.markAsDirty();
+      }
       this._onChange(data);
     });
     if (this.selectedValue) {
