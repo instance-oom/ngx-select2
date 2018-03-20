@@ -125,6 +125,12 @@ export class LSelect2Component implements ControlValueAccessor {
         this.setSelect2Value(this.selectedValue);
       }
     }
+
+    if (changes['initialValue'] && JSON.stringify(changes['initialValue'].previousValue) !== JSON.stringify(changes['initialValue'].currentValue)) {
+      this.selectedValue = changes['initialValue'].currentValue;
+      this.initSelect2();
+      this.setSelect2Value(this.selectedValue);
+    }
   }
 
   ngOnDestroy() {
