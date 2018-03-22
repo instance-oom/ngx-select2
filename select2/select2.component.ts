@@ -115,6 +115,15 @@ export class LSelect2Component implements ControlValueAccessor {
     if (this.selectedValue) {
       this.setSelect2Value(this.selectedValue);
     }
+
+    if (this.control) {
+      this.control.valueChanges
+        .subscribe((value) => {
+          if (!value) {
+            this._jqueryElement.val(null).trigger('change');
+          }
+        });
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
