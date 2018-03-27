@@ -79,7 +79,7 @@ export class LSelect2Component implements ControlValueAccessor {
     }
 
     if (this.parentForm && this.name) {
-      this.control = new FormControl({value: this.selectedValue, disabled: Boolean(this.disabled)}, validators)
+      this.control = new FormControl({value: this.selectedValue, disabled: Boolean(this.disabled)}, validators);
       this.parentForm.addControl(this.name, this.control);
     }
   }
@@ -90,6 +90,16 @@ export class LSelect2Component implements ControlValueAccessor {
 
     this._jqueryElement.on('select2:select select2:unselect', (e: any) => {
       let data = this._jqueryElement.select2('data');
+      let removedDuplicates = this.removeDuplicates(data, (x) => x.id);
+
+      if (data.length !== removedDuplicates.length) {
+        this._jqueryElement.select2('data', removedDuplicates);
+        const choices = this._jqueryElement.parent().find('.select2-selection__choice');
+        const last = choices.last();
+        last.remove();
+        data = removedDuplicates;
+      }
+
       for (let item of data) {
         delete item.element;
         delete item.disabled;
@@ -103,15 +113,19 @@ export class LSelect2Component implements ControlValueAccessor {
           delete item.required;
         }
       }
+
       if (!this.options.multiple) {
         data = (e.type == 'select2:unselect') ? null : data[0];
       }
+
       if (this.control) {
         this.control.setValue(data);
         this.control.markAsDirty();
       }
+
       this._onChange(data);
     });
+
     if (this.selectedValue) {
       this.setSelect2Value(this.selectedValue);
     }
@@ -124,6 +138,20 @@ export class LSelect2Component implements ControlValueAccessor {
           }
         });
     }
+  }
+
+  private removeDuplicates(data: any[], keyFn: Function) {
+    const mySet = new Set();
+    return data.filter(function (x) {
+      const key = keyFn(x);
+      const isNew = !mySet.has(key);
+
+      if (isNew) {
+        mySet.add(key);
+      }
+
+      return isNew;
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
