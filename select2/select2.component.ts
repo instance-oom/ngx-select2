@@ -95,8 +95,11 @@ export class LSelect2Component implements ControlValueAccessor {
       if (data.length !== removedDuplicates.length) {
         this._jqueryElement.select2('data', removedDuplicates);
         const choices = this._jqueryElement.parent().find('.select2-selection__choice');
-        const last = choices.last();
-        last.remove();
+        choices.each((index: number, choice: any) => {
+          if (index !== 0) {
+            choice.remove();
+          }
+        });
         data = removedDuplicates;
       }
 
