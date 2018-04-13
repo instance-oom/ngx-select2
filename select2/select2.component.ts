@@ -91,6 +91,7 @@ export class LSelect2Component implements ControlValueAccessor {
     this._jqueryElement.on('select2:select select2:unselect', (e: any) => {
       let data = this._jqueryElement.select2('data');
       let removedDuplicates = this.removeDuplicates(data, (x) => x.id);
+      this.removeDuplicatesFromDom();
 
       if (data.length !== removedDuplicates.length) {
         this._jqueryElement.select2('data', removedDuplicates);
@@ -148,6 +149,18 @@ export class LSelect2Component implements ControlValueAccessor {
       }
 
       return isNew;
+    });
+  }
+
+  private removeDuplicatesFromDom(): void {
+    const choices = this._jqueryElement.parent().find('.select2-selection__choice');
+    const currentDuplicates: any = {};
+    choices.each((index: number, choice: any) => {
+      if (!currentDuplicates[choice.title]) {
+        currentDuplicates[choice.title] = true;
+      } else {
+        choice.remove();
+      }
     });
   }
 
@@ -216,15 +229,6 @@ export class LSelect2Component implements ControlValueAccessor {
     }
 
     this._jqueryElement.val(targetVal).trigger('change');
-
-    const choices = this._jqueryElement.parent().find('.select2-selection__choice');
-    const currentDuplicates: any = {};
-    choices.each((index: number, choice: any) => {
-      if (!currentDuplicates[choice.title]) {
-        currentDuplicates[choice.title] = true;
-      } else {
-        choice.remove();
-      }
-    });
+    this.removeDuplicatesFromDom();
   }
 }
