@@ -80,6 +80,11 @@ export class LSelect2Component implements ControlValueAccessor {
 
     if (this.parentForm && this.name) {
       this.control = new FormControl({value: this.selectedValue, disabled: Boolean(this.disabled)}, validators);
+
+      if (this.parentForm.get(this.name)) {
+        this.parentForm.removeControl(this.name);
+      }
+      
       this.parentForm.addControl(this.name, this.control);
     }
   }
