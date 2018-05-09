@@ -1,4 +1,14 @@
-import {Component, ViewChild, ElementRef, forwardRef, Input, SimpleChanges, Renderer} from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  forwardRef,
+  Input,
+  SimpleChanges,
+  Renderer,
+  EventEmitter
+  Output
+} from '@angular/core';
 import {
   NG_VALUE_ACCESSOR,
   ControlValueAccessor,
@@ -53,6 +63,9 @@ export class LSelect2Component implements ControlValueAccessor {
   @Input()
   options: any = {};
 
+  @Output()
+  clear: EventEmitter<void> = new EventEmitter<void>();
+
   selectedValue: any | Array<any>;
   _jqueryElement: any;
 
@@ -84,7 +97,7 @@ export class LSelect2Component implements ControlValueAccessor {
       if (this.parentForm.get(this.name)) {
         this.parentForm.removeControl(this.name);
       }
-      
+
       this.parentForm.addControl(this.name, this.control);
     }
   }
@@ -92,6 +105,10 @@ export class LSelect2Component implements ControlValueAccessor {
   ngAfterViewInit() {
     this._jqueryElement = $(this.selectControll.nativeElement);
     this.initSelect2();
+
+    this._jqueryElement.on('select2:unselecting', (e: any) => {
+      this.clear.emit();
+    });
 
     this._jqueryElement.on('select2:select select2:unselect', (e: any) => {
       let data = this._jqueryElement.select2('data');
