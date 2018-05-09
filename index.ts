@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { LSelect2Component } from './select2/select2.component';
+import {LSelect2Component} from './select2/select2.component';
 
 export * from './select2/select2.component';
 
@@ -12,10 +12,12 @@ export * from './select2/select2.component';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     LSelect2Component
   ]
 })
-export class LSelect2Module { }
+export class LSelect2Module {
+}
