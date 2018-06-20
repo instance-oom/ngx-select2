@@ -41,7 +41,7 @@ import { LSelect2Module } from 'ngx-select2';
 export class AppModule { }
 ```
 ```html
-<l-select2 [(ngModel)]="selected" [data]="data" [options]="options" [disabled]="false"></l-select2>
+<l-select2 [(ngModel)]="selected" [data]="data" [options]="options" [disabled]="false" (valueChange)="valueChange($event)"></l-select2>
 ```
 
 # Options
@@ -49,3 +49,8 @@ export class AppModule { }
 - data: select2 init data for select
 - options: select2 options
 - disabled: disable select2 component
+- valueChange: `output`. Fire on value change, same as `ngModelChange`
+
+# ChangeLog
+
+- `0.2.0`: Add `valueChange`, Support `Angular 6`

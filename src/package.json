@@ -1,0 +1,9 @@
+{
+  "name": "ngx-select2",
+  "peerDependencies": {
+    "@angular/common": "6.x.x",
+    "@angular/core": "6.x.x",
+    "@angular/forms": "6.x.x",
+    "rxjs": "6.x.x"
+  }
+}

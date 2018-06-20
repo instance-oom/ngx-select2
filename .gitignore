@@ -3,3 +3,5 @@ node_modules/
 *.d.ts
 *.js
 demo/dist/
+.tmp/
+dist/
