@@ -72,7 +72,7 @@ export class LSelect2Component implements ControlValueAccessor {
 
   ngOnChanges(changes: SimpleChanges) {
     if (!this._jqueryElement) return;
-    if (changes['data'] && JSON.stringify(changes['data'].previousValue) !== JSON.stringify(changes['data'].currentValue)) {
+    if (this.hasChanged(changes)) {
       this.initSelect2();
       if (this.selectedValue) {
         this.setSelect2Value(this.selectedValue);
@@ -121,5 +121,15 @@ export class LSelect2Component implements ControlValueAccessor {
       targetVal = value.map(x => x['id']);
     }
     this._jqueryElement.val(targetVal).trigger('change');
+  }
+
+  private hasChanged(changes: any) {
+    if (changes['data'] && JSON.stringify(changes['data'].previousValue) !== JSON.stringify(changes['data'].currentValue)) {
+      return true;
+    }
+    if (changes['options'] && JSON.stringify(changes['options'].previousValue) !== JSON.stringify(changes['options'].currentValue)) {
+      return true;
+    }
+    return false;
   }
 }
