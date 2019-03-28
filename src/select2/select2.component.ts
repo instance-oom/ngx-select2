@@ -58,6 +58,7 @@ export class LSelect2Component implements ControlValueAccessor, Validator {
       if (!this.options.multiple) {
         data = (e.type == 'select2:unselect') ? null : data[0];
       }
+      this.selectedValue = data;
       this._onChange(data);
       this.valueChange.emit(data);
     });
