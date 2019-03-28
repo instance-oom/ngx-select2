@@ -1,0 +1,6 @@
+{
+  "lib": {
+    "entryFile": "src/public_api.ts",    
+    "umdId": "ngx-select2"
+  }
+}

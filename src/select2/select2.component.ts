@@ -1,45 +1,41 @@
 import { Component, ViewChild, ElementRef, forwardRef, Input, Output, EventEmitter, SimpleChanges, Renderer } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 
 declare let $: any;
 
 @Component({
   selector: 'l-select2',
-  template: `
-    <select #selectControll [disabled]="disabled" style="width: 100%">
-      <ng-content select="option, optgroup">
-      </ng-content>
-    </select>
-  `,
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => LSelect2Component),
-    multi: true
-  }]
+  templateUrl: './select2.html',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => LSelect2Component),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => LSelect2Component),
+      multi: true
+    }
+  ]
 })
+export class LSelect2Component implements ControlValueAccessor, Validator {
 
-export class LSelect2Component implements ControlValueAccessor {
+  @ViewChild('selectControll') selectControll: ElementRef;
 
-  @ViewChild('selectControll')
-  selectControll: ElementRef;
+  @Input() data: Array<any>;
+  @Input() disabled: boolean;
+  @Input() options: any = {};
+  @Input() required: boolean = false;
+  @Input() maxCount: number = Number.MAX_SAFE_INTEGER;
+  @Input() minCount: number = Number.MIN_SAFE_INTEGER;
+  @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
-  @Input()
-  data: Array<any>;
+  public selectedValue: any | Array<any>
 
-  @Input()
-  disabled: boolean;
-
-  @Input()
-  options: any = {};
-
-  @Output()
-  valueChange: EventEmitter<any> = new EventEmitter<any>();
-
-  selectedValue: any | Array<any>
-  _jqueryElement: any;
-
-  _onChange = (_: any) => { };
-  _onTouched = () => { };
+  private _jqueryElement: any;
+  private _onChange = (_: any) => { };
+  private _onTouched = () => { };
 
   constructor(
     private _renderer: Renderer) {
@@ -98,7 +94,28 @@ export class LSelect2Component implements ControlValueAccessor {
     this._onTouched = fn;
   }
 
-  initSelect2() {
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+  }
+
+  validate(c: AbstractControl): ValidationErrors {
+    if (this.disabled) {
+      return null;
+    }
+    let length = this.selectedValue ? this.selectedValue.length : 0;
+    if (this.required === true && length === 0) {
+      return { required: true };
+    }
+    if (this.minCount > 0 && length < this.minCount) {
+      return { minCount: true };
+    }
+    if (this.maxCount > 0 && length > this.maxCount) {
+      return { maxCount: true };
+    }
+    return null;
+  }
+
+  private initSelect2() {
     if (this._jqueryElement.hasClass('select2-hidden-accessible') == true) {
       this._jqueryElement.select2('destroy');
       this._renderer.setElementProperty(this.selectControll.nativeElement, 'innerHTML', '');
@@ -111,7 +128,7 @@ export class LSelect2Component implements ControlValueAccessor {
     this._jqueryElement.select2(options);
   }
 
-  setSelect2Value(value: any | Array<any>) {
+  private setSelect2Value(value: any | Array<any>) {
     if (!this._jqueryElement || !value) {
       this.selectedValue = value;
       return;

@@ -1,10 +1,10 @@
 {
   "name": "ngx-select2",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Select2 component for Angular",
   "main": "index.js",
   "scripts": {
-    "build.ngm": "ngm build -p src --clean"
+    "build": "ng-packagr -p ng-package.json"
   },
   "repository": {
     "type": "git",
@@ -22,22 +22,22 @@
   },
   "homepage": "https://github.com/lon-yang/ngx-select2#readme",
   "peerDependencies": {
-    "@angular/common": "6.x.x",
-    "@angular/core": "6.x.x",
-    "@angular/forms": "6.x.x",
-    "rxjs": "6.x.x"
+    "@angular/common": ">=6.x.x",
+    "@angular/core": ">=6.x.x",
+    "@angular/forms": ">=6.x.x",
+    "rxjs": ">=6.x.x"
   },
   "devDependencies": {
-    "@angular/cli": "^6.0.8",
-    "@angular/common": "^6.0.5",
-    "@angular/compiler": "^6.0.5",
-    "@angular/compiler-cli": "^6.0.5",
-    "@angular/core": "^6.0.5",
-    "@angular/forms": "^6.0.5",
-    "@types/jasmine": "^2.8.8",
-    "@types/jasminewd2": "^2.0.3",
-    "@types/node": "^10.3.4",
-    "ngm-cli": "^1.0.4",
-    "rxjs": "^6.2.1"
+    "@angular/cli": "^7.3.6",
+    "@angular/common": "^7.2.11",
+    "@angular/compiler": "^7.2.11",
+    "@angular/compiler-cli": "^7.2.11",
+    "@angular/core": "^7.2.11",
+    "@angular/forms": "^7.2.11",
+    "@types/node": "^11.12.0",
+    "ng-packagr": "^4.7.1",
+    "rxjs": "^6.4.0",
+    "tsickle": "^0.34.3",
+    "typescript": "3.2.4"
   }
 }
