@@ -116,7 +116,7 @@ export class LSelect2Component implements ControlValueAccessor, Validator {
     return null;
   }
 
-  private initSelect2() {
+  public initSelect2() {
     if (this._jqueryElement.hasClass('select2-hidden-accessible') == true) {
       this._jqueryElement.select2('destroy');
       this._renderer.setElementProperty(this.selectControll.nativeElement, 'innerHTML', '');
