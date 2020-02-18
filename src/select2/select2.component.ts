@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, forwardRef, Input, Output, EventEmitter, SimpleChanges, Renderer } from '@angular/core';
+import { Component, ViewChild, ElementRef, forwardRef, Input, Output, EventEmitter, SimpleChanges, Renderer2 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 
 declare let $: any;
@@ -38,7 +38,7 @@ export class LSelect2Component implements ControlValueAccessor, Validator {
   private _onTouched = () => { };
 
   constructor(
-    private _renderer: Renderer) {
+    private _renderer: Renderer2) {
 
   }
 
@@ -119,7 +119,7 @@ export class LSelect2Component implements ControlValueAccessor, Validator {
   public initSelect2() {
     if (this._jqueryElement.hasClass('select2-hidden-accessible') == true) {
       this._jqueryElement.select2('destroy');
-      this._renderer.setElementProperty(this.selectControll.nativeElement, 'innerHTML', '');
+      this._renderer.setProperty(this.selectControll.nativeElement, 'innerHTML', '');
     }
 
     let options: any = {

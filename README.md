@@ -54,3 +54,4 @@ export class AppModule { }
 # ChangeLog
 
 - `0.2.0`: Add `valueChange`, Support `Angular 6`
+- `0.3.0`: Support `Angular 9`

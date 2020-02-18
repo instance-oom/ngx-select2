@@ -1,10 +1,10 @@
 {
   "name": "ngx-select2",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Select2 component for Angular",
   "main": "index.js",
   "scripts": {
-    "build": "ng-packagr -p ng-package.json"
+    "build": "ng-packagr -p ng-package.json -c tsconfig.ngc.json"
   },
   "repository": {
     "type": "git",
@@ -12,8 +12,7 @@
   },
   "keywords": [
     "Select2",
-    "Angular",
-    "Angular 6"
+    "Angular"
   ],
   "author": "Lon.L.Yang",
   "license": "Apache License 2.0",
@@ -22,22 +21,25 @@
   },
   "homepage": "https://github.com/lon-yang/ngx-select2#readme",
   "peerDependencies": {
-    "@angular/common": ">=6.x.x",
-    "@angular/core": ">=6.x.x",
-    "@angular/forms": ">=6.x.x",
+    "@angular/common": ">=9.0.0",
+    "@angular/core": ">=9.0.0",
+    "@angular/forms": ">=9.0.0",
     "rxjs": ">=6.x.x"
   },
   "devDependencies": {
-    "@angular/cli": "^7.3.6",
-    "@angular/common": "^7.2.11",
-    "@angular/compiler": "^7.2.11",
-    "@angular/compiler-cli": "^7.2.11",
-    "@angular/core": "^7.2.11",
-    "@angular/forms": "^7.2.11",
-    "@types/node": "^11.12.0",
-    "ng-packagr": "^4.7.1",
-    "rxjs": "^6.4.0",
-    "tsickle": "^0.34.3",
-    "typescript": "3.2.4"
+    "@angular/cli": "^9.0.2",
+    "@angular/common": "^9.0.1",
+    "@angular/compiler": "^9.0.1",
+    "@angular/compiler-cli": "^9.0.1",
+    "@angular/core": "^9.0.1",
+    "@angular/forms": "^9.0.1",
+    "@types/node": "^13.7.1",
+    "ng-packagr": "^9.0.0",
+    "rxjs": "^6.5.4",
+    "tsickle": "^0.38.0",
+    "typescript": "3.7.5"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
