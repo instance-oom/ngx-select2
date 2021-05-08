@@ -34,7 +34,7 @@
     "@angular/core": "^9.0.1",
     "@angular/forms": "^9.0.1",
     "@types/node": "^13.7.1",
-    "ng-packagr": "^9.0.0",
+    "ng-packagr": "^10.1.1",
     "rxjs": "^6.5.4",
     "tsickle": "^0.38.0",
     "typescript": "3.7.5"
